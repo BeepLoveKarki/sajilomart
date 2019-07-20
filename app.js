@@ -120,10 +120,10 @@ app.get('/getcustomers',(req,res)=>{
 	
 });
 
-app.get('/deletecustomer',(req,res)=>{
-  console.log(req.body);
-  Customer.findOneAndDelete({id:req.body.id}).exec(function (err,customer) {
-   
+app.post('/deletecustomer',(req,res)=>{
+  
+  Customer.findOneAndDelete({'_id':req.body.id}).exec(function (err,status) {
+    res.send({status:"done"});
   });
 	
 });

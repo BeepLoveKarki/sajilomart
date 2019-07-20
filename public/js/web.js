@@ -11,6 +11,10 @@ $(document).ready(()=>{
  setTimeout(()=>{
   getcustomers()
  },1000);
+ 
+ setInterval(()=>{
+  getcustomers()
+ },5000);
   
 });
 
@@ -30,16 +34,20 @@ function show(a){
 function getcustomers(){
   $.get("/getcustomers").then ((res,status)=>{
     $(".udata").empty();
-	res.customer.forEach((val,index)=>{
+    if(res["data"]){
+	  $(".udata").append("<tr><td colspan=\"6\" class=\"text-center\"><h5>No any customers found</h5></td></tr>");
+	}else{		
+	 res.customer.forEach((val,index)=>{
 	  $(".udata").append("<tr>\
 	  <td>"+(index+1).toString()+"</td>\
 	  <td>"+val["name"]+"</td>\
 	  <td>"+val["address"]+"</td>\
 	  <td>"+val["number"]+"</td>\
 	  <td>"+val["email"]+"</td>\
-	  <td><i onclick=\"iedit('"+val["id"]+"')\" class=\"fa fa-edit fa-2x\"></i><i onclick=\"modal2('"+val["id"]+"')\" class=\"fa fa-trash fa-2x\"></i></td>\
+	  <td><i onclick=\"iedit('"+val["_id"]+"')\" class=\"fa fa-edit fa-2x\"></i><i onclick=\"modal2('"+val["_id"]+"')\" class=\"fa fa-trash fa-2x\"></i></td>\
 	  </tr>");
-	});
+	 });
+    }
   });
 }
 
@@ -61,8 +69,13 @@ function modal2(id){
 function deletecustomer(){
  $.post("/deletecustomer",{id:did}).then((res,status)=>{
     if(res.status=="done"){
+	  $(".custdmodal").modal('hide');
 	  modal("Customer successfully deleted");
 	  getcustomers();
 	}
  });
+}
+
+function addGood(){
+   $(".goodmodal").modal('show');
 }

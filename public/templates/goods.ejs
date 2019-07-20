@@ -1,0 +1,75 @@
+<div class="container-fluid">
+
+<div class="row utform">
+	 
+	 <div class="col-xs-12 col-sm-12 col-md-10">
+	   
+      <div class="sform">
+       <form class="form-inline" onSubmit="return false;">	  
+		 <input class="form-control" id="searchgood" onkeyup="searchtable(0)" type="text" placeholder="Search..">
+		 <button type="button" id="sbut1" onclick="searchtable(0)" class="btn"><i class="fa fa-search"></i></button>
+	    </form>
+	  </div>
+	 
+	 </div>
+	 
+	 <div class="col-xs-12 col-sm-12 col-md-2">
+	  <div class="addg">
+	   <button type="button" id="sbut2" onclick="addGood()" class="btn btn-primary">Add Good</button>
+	  </div>
+	 </div>
+  
+  </div>
+
+  
+  
+<div class="row uform">
+  
+  <div class="table-responsive">
+   <table class="table goodtable" id="goodtable">
+     
+	 <thead>
+       <tr>
+	    <th scope="col" width="10%">S.No.</th>
+        <th scope="col" width="20%">Name</th>
+        <th scope="col" width="20%">Price</th>
+        <th scope="col" width="20%">Type</th>
+        <th scope="col" width="20%">Tag</th>
+		<th scope="col" width="10%">Action</th>
+       </tr>
+     </thead>
+	 
+     <tbody class="gdata">
+      
+     </tbody>
+	
+   </table>
+   </div>
+
+  </div>
+  
+  
+  <div class="modal goodmodal" role="dialog">
+	
+	<div class="modal-dialog">
+	  <div class="modal-content">
+         <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+	      <div class="modal-body">
+            
+          </div>
+	      <div class="modal-footer">
+			  <button type="button" class="btn btn-primary" id="dismiss" onclick="deletecustomer()">Yes</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          </div>
+		</div>
+     </div>
+	 
+  </div>
+  
+	 
+	 
+</div>

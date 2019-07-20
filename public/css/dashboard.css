@@ -26,7 +26,7 @@ i,a{
   margin-top:2%;
 }
 
-.simplemodal{
+.simplemodal, .custdmodal{
   margin-top:20vh;
 }
 
@@ -37,6 +37,12 @@ i,a{
 #dismiss{
   color:white;
   background-color: #4290f5;
+}
+
+.sform{
+  margin-left:8% !important;
+  margin-top:2% !important;
+  margin-bottom:2% !important;
 }
 
 #videoElement {
@@ -52,8 +58,12 @@ i,a{
    margin-left: 10%;
 }
 
-#contable{
+#contable,#goodtable{
   margin-left:8%;
+}
+
+.addg{
+  margin-right:18% !important;
 }
 
 video {
