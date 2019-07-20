@@ -40,7 +40,7 @@ i,a{
 }
 
 .sform{
-  margin-left:8% !important;
+  margin-left:10% !important;
   margin-top:2% !important;
   margin-bottom:2% !important;
 }
@@ -63,7 +63,8 @@ i,a{
 }
 
 .addg{
-  margin-right:18% !important;
+  /* margin-right:18% !important; */
+  margin-top: 8% !important;
 }
 
 video {
@@ -72,4 +73,110 @@ video {
 
 .devices{
    margin-top:20px;
+}
+
+
+.colorSplit1{
+  color: rgb(4, 199, 4);
+  font-size: 1.3em;
+}
+
+
+.colorSplit2{
+  color: white;
+}
+
+.col-xs-3 , .col-sm-3, .col-md-3{
+
+  padding-left: 0px !important; 
+  padding-right: 0px !important;
+  margin: 1% !important;
+}
+
+.card{
+  padding: 0px !important;
+  margin: 0px !important;
+  
+}
+
+#card1{
+  background-color: #f56600 !important;
+}
+#card2{
+  background-color: #00d05d !important;
+}
+#card3{
+  background-color: #0081bf !important;
+}
+
+#card4{
+  background-color: #feff50 !important;
+  margin-bottom: 5% !important;
+}
+
+#card5{
+  background-color: #00d05d !important;
+  
+  margin: auto !important;
+  padding-top: 2% !important;
+  padding-bottom: 3% !important;
+  
+}
+
+
+
+#dashMargin{
+
+  margin-left: 10% !important;
+  margin-top: 1.5% !important;
+}
+
+.card-img-top{
+  display: block;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8%;
+
+  max-width:200px;
+  max-height:200px;
+
+  width: auto;
+  height: auto;
+}
+
+.card-body{
+
+  text-align: center;
+  color: white;
+}
+
+.usersNo, .salesNo, .storesNo{
+
+  color: white;
+  font-size: 5em;
+}
+
+#lineCharr{
+
+  color: white;
+}
+
+#statCard{
+  color: black;
+}
+
+.container-fluid{
+  margin-top: 6em !important;
+}
+
+.nameField, .emailField, .passField, .editField{
+
+  margin-bottom: 2% !important;
+  font-size: 1.25em !important;
+} 
+
+.editField{
+
+  margin-top: 7% !important;
 }

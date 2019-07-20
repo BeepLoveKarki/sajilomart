@@ -19,19 +19,23 @@ align-content: right;
 }
 
 .card{
-height: 370px;
+height: 320px;
 margin-top: auto;
 margin-bottom: auto;
-width: 900px;
+/* padding-bottom: 1em; */
+width: 390px;
 margin-left: 50%;
 border: none !important;
 background-color: rgba(0,0,0,0.5) !important;
 opacity:60% !important;
+/* font-size: 1.2em; */
 }
 
 .card-header{
    background:none !important;
    border: none !important;
+   padding-bottom: 1px;
+   /* font-size: 1.2em */
 }
 
 .card-footer{
@@ -41,6 +45,7 @@ opacity:60% !important;
 
 .card-header h3{
 color: white;
+/* font-size: 2.3 em !important; */
 }
 
 
@@ -72,3 +77,15 @@ width: 100px;
 color: black;
 background-color: #596E8B;
 }
+
+
+.colorSplit1{
+   color: rgb(4, 199, 4);
+   font-size: 1.3em;
+}
+
+
+.colorSplit2{
+   color: white;
+}
+

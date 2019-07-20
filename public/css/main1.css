@@ -85,7 +85,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 
 .navbar-nav .nav-item.active .nav-link {
-  color: #fff;
+  color: #21cc21;
 }
 
 .navbar-nav .nav-item.dropdown .dropdown-toggle::after {
@@ -127,8 +127,9 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 
 .sidebar {
   width: 90px !important;
-  background-color: #072f63;
+  background-color: #16181b;
   min-height: calc(100vh - 56px);
+  margin-top: 4em !important;
 }
 
 .sidebar .nav-item:last-child {
@@ -367,4 +368,10 @@ body.sidebar-toggled footer.sticky-footer {
   body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
+}
+
+
+.form-control{
+
+  border: 1px solid #abb2b9 !important;
 }
