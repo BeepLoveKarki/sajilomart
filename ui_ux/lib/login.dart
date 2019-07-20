@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'register.dart';
+import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -61,7 +62,13 @@ class _LoginPageState extends State<LoginPage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+          (Route<dynamic> route) => false,
+        );
+        },
         child: Text("Sign In",
             textAlign: TextAlign.center,
             style: style.copyWith(
@@ -74,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
         title: Text("Login Page",style: TextStyle(color:Colors.white),),
         centerTitle: true ,
         automaticallyImplyLeading: false,
-      ),
+      ),    
       body: Center( 
         child: SingleChildScrollView(
             child: Padding( 

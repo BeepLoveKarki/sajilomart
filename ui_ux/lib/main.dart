@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
-// import 'camera.dart';
 
 void main() => runApp(App());
 
@@ -13,7 +12,6 @@ class App extends StatelessWidget{
         primarySwatch: Colors.lightBlue,
       ),
       home: LoginPage(title: 'Login'),
-      // home: CapturePhoto(),
     );
   }
 }
