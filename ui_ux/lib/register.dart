@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -95,18 +96,17 @@ class _RegisterPageState extends State<RegisterPage> {
         child: SingleChildScrollView(
           child: Padding( 
             padding:const EdgeInsets.all(36.0),
-            child: Column(
+            child: Column(  
               children: <Widget>[
-                SizedBox(
-                  height: 155.0,
-                  child: GestureDetector(
-                    onTap: (){
-                      // print('clicked');
-                      getImage();
-                    },
-                    child:avatar(),
-                  )
+                GestureDetector(
+                  child: ClipOval(
+                    child: Container(width:150,height:200,child:avatar()),
+                  ),
+                  onTap: (){
+                    getImage();
+                  },
                 ),
+              
                 SizedBox(height: 15.0),
                 usernameField,
                 SizedBox(height: 15.0),
@@ -117,9 +117,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 registerButton
               ],
             ),
-          )
-        ),
-      )
+          ),
+        )
+      ),
     );
   }
 }
