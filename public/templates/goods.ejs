@@ -59,11 +59,33 @@
              </button>
           </div>
 	      <div class="modal-body">
-            
+            <form>
+			<div class="form-group">
+			 <label for="gname">Name</label>
+			   <input type="text" name="name" class="form-control" id="gname" placeholder="Enter Good Name">
+            </div>
+            <div class="form-group">
+			  <label for="type">Good Type</label>
+			    <select class="form-control" id="type" name="type">
+				 <option value="Edible">Edible</option>
+				 <option value="Edible">Wearable</option>
+				 <option value="Gadgets">Gadgets</option>
+				 <option value="Households">Households</option>
+               </select>
+           </div>
+		   <div class="form-group">
+			 <label for="price">Price</label>
+			   <input type="text" name="price" class="form-control" id="price" placeholder="Enter Good Name">
+           </div>
+		   <div class="form-group">
+			 <label for="tag">Tag</label>
+			   <input type="text" name="tag" class="form-control" id="price" placeholder="Enter Good Name">
+            </div>
+          </form>
           </div>
 	      <div class="modal-footer">
-			  <button type="button" class="btn btn-primary" id="dismiss" onclick="deletecustomer()">Yes</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+			  <button type="button" class="btn btn-primary" id="dismiss" onclick="postgood()">Submit</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
 		</div>
      </div>

@@ -45,15 +45,6 @@ i,a{
   margin-bottom:2% !important;
 }
 
-#videoElement {
-	width: 70%;
-	height: 475px;
-	background-color: #666;
-	margin-top:20px; 
-	margin-left:20px;
-	cursor:pointer;
-}
-
 .container-fluid{
    margin-left: 10%;
 }

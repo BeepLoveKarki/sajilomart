@@ -12,6 +12,12 @@ let awsIot = require('aws-iot-device-sdk');
 let io = require('socket.io')(app.server);
 let cmd=require('node-cmd');
 let enc = require('./enc-dec');
+let WebSocket = require('ws');
+let AWS = require('aws-sdk');
+let fs = require('fs-extra');
+let path = require('path');
+let asynca = require("async");
+
 
 require('dotenv').config();
 
@@ -58,13 +64,25 @@ app.register(fastifySession, {
 //mongoose.connect('mongodb://uname:pwd@157.230.104.253:27017/pir',{useNewUrlParser:true,useCreateIndex:true})
 mongoose.connect('mongodb://localhost:27017/sajilomart',{useNewUrlParser:true,useCreateIndex:true})
 
-/*let device = awsIot.device({
-   keyPath: 'credentials/1a2da9790c-certificate.pem.key',
+let device = awsIot.device({
+   keyPath: 'credentials/1a2da9790c-private.pem.key',
   certPath: 'credentials/1a2da9790c-certificate.pem.crt',
     caPath: 'credentials/root-CA.crt',
   clientId: 'sajilomart',
       host: 'a1dwqhuuo6ioox-ats.iot.us-east-1.amazonaws.com'
-});*/
+});
+
+device.on('connect', function() {
+	device.subscribe("rfid");
+});
+
+device.on("error",function(err){
+});
+ 
+device.on("message",function(topic,payload){
+   let data=JSON.parse(payload.toString());
+   console.log(data);
+});
 
 
 /*Web part*/
@@ -90,7 +108,7 @@ app.get("/",(req,res)=>{
 
 app.post('/register',(req,res)=>{
 
-   let user=new User({
+  let user=new User({
 	 name:req.body.name,
 	 email:req.body.email,
 	 password:req.body.password
@@ -107,6 +125,8 @@ app.post('/register',(req,res)=>{
   }
 	
 });
+
+
 
 app.get('/getcustomers',(req,res)=>{
   
@@ -130,17 +150,39 @@ app.post('/deletecustomer',(req,res)=>{
 
 app.post('/customerregister',(req,res)=>{
   
+  let files = req.raw.files;
+  let buffers=new Array(),paths=new Array(),result=new Array();
+  files["image"].forEach((val,index)=>{
+     buffers.push(new Buffer.from(val.data,'base64'));
+	 paths.push('./public/uploads/'+req.raw.body.email+'/'+(index+1).toString()+'.png');
+	 result.push(function(callback){
+        fs.writeFile(paths[index], buffers[index], callback);
+     });
+  });
   
+  let dir='./public/uploads/'+req.raw.body.email;
+  fs.mkdir('./public/uploads/'+req.raw.body.email,{recursive:true},(err)=>{
+    asynca.parallel(result,function(err, results){
+		  cmd.get('aws s3 mv '+dir+'/ s3://sajilomart/'+req.raw.body.email+'/ --recursive', function(err, data, stderr){
+			fs.remove(dir, (err)=>{
+			   customerbridge(req,res);
+			});
+          });
+    });
+  });
+});
+
+function customerbridge(req,res){
   Customer.find().exec(function (err,customer) {
 
    let a=0;
    if(customer.length!=0){
     for(let i=0;i<customer.length;i++){
-     if(customer[i].email==req.body.email){
+     if(customer[i].email==req.raw.body.email){
       a=1;
 	  break;
      }
-	 if(customer[i].number==req.body.number){
+	 if(customer[i].number==req.raw.body.number){
 	  a=2;
 	  break;
 	 }
@@ -156,17 +198,16 @@ app.post('/customerregister',(req,res)=>{
   }
   
  });
-	
-});
+}
 
 function savecustomer(req,res){
- 
+
   let customer=new Customer({
-    name:req.body.name,
-	email:req.body.email,
-	address:req.body.address,
-	number:req.body.number,
-	password:req.body.password
+    name:req.raw.body.name,
+	email:req.raw.body.email,
+	address:req.raw.body.address,
+	number:req.raw.body.number,
+	password:req.raw.body.password
    });
 	
    customer.save().then((doc,err)=>{
