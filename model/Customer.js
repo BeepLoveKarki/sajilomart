@@ -26,9 +26,11 @@ let CustomerSchema=mongoose.Schema({
     createdDate:{
         type:Date,
         default:Date.now()
-    }
+    },
+	goods:{
+	   type:String
+	}
 });
-
 
 CustomerSchema.pre('save',function(next){  
   if (this.isModified('password')){
@@ -44,7 +46,7 @@ CustomerSchema.pre('save',function(next){
 });
 
 
-CustomerSchema.plugin(mongooseFieldEncryption, { fields: ["name","email","address","number","password","createdDate"], secret: enc.decrypt(process.env.database_key) });
+CustomerSchema.plugin(mongooseFieldEncryption, { fields: ["name","email","address","number","password","createdDate","goods"], secret: enc.decrypt(process.env.database_key) });
 
 let Customer=mongoose.model('Customer',CustomerSchema)
 
