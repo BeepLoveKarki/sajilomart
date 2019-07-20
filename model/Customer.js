@@ -19,6 +19,10 @@ let CustomerSchema=mongoose.Schema({
 	password:{
 		type:String
 	},
+	balance:{
+	   type:String,
+	   default:"1000"
+	},
     createdDate:{
         type:Date,
         default:Date.now()
@@ -38,12 +42,6 @@ CustomerSchema.pre('save',function(next){
     next();
   }
 });
-
-function getUserByEmail(email, result) {
-   sql.query("Select * from `users` where email = ? ", email, function (err, res) {
-		 result(res);
-   });   
-};
 
 
 CustomerSchema.plugin(mongooseFieldEncryption, { fields: ["name","email","address","number","password","createdDate"], secret: enc.decrypt(process.env.database_key) });

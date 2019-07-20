@@ -35,7 +35,7 @@ let fileUpload = require('fastify-file-upload');
 
 let User = require('./model/User');
 let Customer = require('./model/Customer');
-
+let Good = require('./model/Goods');
  
 app.register(fileUpload);
 app.register(fastifyCookie);
@@ -148,6 +148,60 @@ app.post('/deletecustomer',(req,res)=>{
 	
 });
 
+app.get('/getgoods',(req,res)=>{
+  
+  Good.find().exec(function (err,good) {
+   if(good.length!=0){
+	 res.send({good});
+   }else{
+     res.send({data:"none"});
+   }
+  });
+	
+});
+
+app.post('/deletegood',(req,res)=>{
+  
+  Good.findOneAndDelete({'_id':req.body.id}).exec(function (err,status) {
+    res.send({status:"done"});
+  });
+	
+});
+
+app.post("/addgood",(req,res)=>{
+ 
+ let files = req.raw.files;
+ let buffer=new Buffer.from(files["image"]["data"],'base64');
+ let filepath="./public/uploads/"+req.raw.body.type+"/"+req.raw.body.name+".png";
+ let path="./public/uploads/"+req.raw.body.type;
+ 
+ fs.mkdir(path,{recursive:true},(err1)=>{
+	fs.writeFile(filepath, buffer, (err2)=>{
+	   cmd.get('aws s3 mv '+filepath+'  s3://sajilomart-goods/'+req.raw.body.type+'/', function(err3, data, stderr){
+			fs.remove(path, (err4)=>{
+			   goods(req,res);
+			});
+       });
+	});
+ });
+ 
+});
+
+function goods(req,res){
+  
+  let good=new Good({
+    name:req.raw.body.name,
+	type:req.raw.body.type,
+	price:req.raw.body.price,
+	tag:req.raw.body.tag
+ });
+	
+ good.save().then((doc,err)=>{
+	  res.send({status:"done"});
+ });
+ 
+}
+
 app.post('/customerregister',(req,res)=>{
   
   let files = req.raw.files;
@@ -199,6 +253,35 @@ function customerbridge(req,res){
   
  });
 }
+
+app.post("/customerlogin",(req,res)=>{
+   
+   Customer.find().exec(function (err,customer) {
+   
+   let cust, a=0;
+   for(let i=0;i<customer.length;i++){
+	   if(customer[i].email==req.body.email){
+		   cust=customer[i];
+		   a=1;
+		   break;
+		}
+    }
+	
+	if(a==1){
+	  bcrypt.compare(req.body.password,cust["password"],function(err,result){  
+       if(result==true){
+		 res.send({status:"done",data:cust});
+	   }else{
+		 res.send({status:"nopassword"});
+	   }
+	  });
+	}else{
+	  res.send({status:"nousername"});
+	}
+     
+   });
+   
+});
 
 function savecustomer(req,res){
 
