@@ -1,5 +1,10 @@
 html,body{
   overflow-x:hidden;
+  width:100%;
+}
+
+table{
+  width:80% !important;
 }
 
 .wrapper{
@@ -48,7 +53,7 @@ i,a{
 }
 
 #contable{
-  padding-left:2%;
+  margin-left:8%;
 }
 
 video {

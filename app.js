@@ -28,6 +28,8 @@ let fastifyCookie = require('fastify-cookie');
 let fileUpload = require('fastify-file-upload');
 
 let User = require('./model/User');
+let Customer = require('./model/Customer');
+
  
 app.register(fileUpload);
 app.register(fastifyCookie);
@@ -105,6 +107,73 @@ app.post('/register',(req,res)=>{
   }
 	
 });
+
+app.get('/getcustomers',(req,res)=>{
+  
+  Customer.find().exec(function (err,customer) {
+   if(customer.length!=0){
+	 res.send({customer});
+   }else{
+     res.send({data:"none"});
+   }
+  });
+	
+});
+
+app.get('/deletecustomer',(req,res)=>{
+  console.log(req.body);
+  Customer.findOneAndDelete({id:req.body.id}).exec(function (err,customer) {
+   
+  });
+	
+});
+
+app.post('/customerregister',(req,res)=>{
+  
+  
+  Customer.find().exec(function (err,customer) {
+
+   let a=0;
+   if(customer.length!=0){
+    for(let i=0;i<customer.length;i++){
+     if(customer[i].email==req.body.email){
+      a=1;
+	  break;
+     }
+	 if(customer[i].number==req.body.number){
+	  a=2;
+	  break;
+	 }
+    }
+  }
+  
+  if(a==1){
+    res.send({status:"emailalready"});
+   }else if(a==2){
+    res.send({status:"phonealready"});
+  }else{
+    savecustomer(req,res);
+  }
+  
+ });
+	
+});
+
+function savecustomer(req,res){
+ 
+  let customer=new Customer({
+    name:req.body.name,
+	email:req.body.email,
+	address:req.body.address,
+	number:req.body.number,
+	password:req.body.password
+   });
+	
+   customer.save().then((doc,err)=>{
+	  res.send({status:"done"});
+   });
+
+}
 
 app.post("/login",(req,res)=>{
  User.find().exec(function (err,user) {
