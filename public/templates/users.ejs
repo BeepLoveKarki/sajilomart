@@ -1,0 +1,52 @@
+<div class="container-fluid">
+
+<div class="row utform">
+	 
+	 <div class="col-xs-12 col-sm-12 col-md-10">
+	   
+      <div class="sform">
+       <form class="form-inline" onSubmit="return false;">	  
+		 <input class="form-control" id="searchemp" onkeyup="searchtable(1)" type="text" placeholder="Search..">
+		 <button type="button" id="sbut1" onclick="searchtable(1)" class="btn"><i class="fa fa-search"></i></button>
+	    </form>
+	  </div>
+	 
+	 </div>
+	 
+	 <div class="col-xs-12 col-sm-12 col-md-2">
+	    <button type="button" id="acon" class="btn " onclick="addemployee()">Add Employee</button>
+	 </div>
+  
+  </div>
+
+  
+  
+<div class="row uform">
+  
+  <div class="table-responsive">
+   <table class="table contable" id="contable">
+     
+	 <thead>
+       <tr>
+	    <th scope="col">S.No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Email</th>
+		<th scope="col">Action</th>
+       </tr>
+     </thead>
+	 
+     <tbody class="udata">
+      
+    </tbody>
+	
+   </table>
+   </div>
+
+  </div>
+  
+  
+	 
+	 
+</div>

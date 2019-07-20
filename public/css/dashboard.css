@@ -1,0 +1,60 @@
+html,body{
+  overflow-x:hidden;
+}
+
+.wrapper{
+    align-items: stretch;
+}
+#head{
+  margin-top:10px;
+}
+
+.tables{
+  margin-top:30px;
+}
+
+i,a{
+  cursor:pointer;'
+}
+
+.datas{
+  margin-top:2%;
+}
+
+.simplemodal{
+  margin-top:20vh;
+}
+
+.modal-backdrop{
+    opacity:0.75 !important;
+}
+
+#dismiss{
+  color:white;
+  background-color: #4290f5;
+}
+
+#videoElement {
+	width: 70%;
+	height: 475px;
+	background-color: #666;
+	margin-top:20px; 
+	margin-left:20px;
+	cursor:pointer;
+}
+
+.container-fluid{
+   margin-left: 10%;
+}
+
+#contable{
+  padding-left:2%;
+}
+
+video {
+    object-fit: cover !important;
+}
+
+.devices{
+   margin-top:20px;
+}
