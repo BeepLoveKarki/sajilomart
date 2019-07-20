@@ -1,4 +1,4 @@
-let num=4;
+let num=6;
 
 $(document).ready(()=>{
   let d=localStorage.getItem("index");
@@ -23,7 +23,7 @@ function show(a){
   $("#n"+a.toString()).addClass("active");
   $("#a"+a.toString()).show();
   localStorage.setItem("index",a);
-  for(let i=1;i<=4;i++){
+  for(let i=1;i<=num;i++){
      if(i!=a){
 	   $("#n"+i.toString()).removeClass("active");
 	   $("#a"+i.toString()).hide();
