@@ -10,11 +10,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  TextEditingController usernameController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   @override
   Widget build(BuildContext context) {
 
     final usernameField = TextField(
+      controller: usernameController,
       obscureText: false,
       style: style,
       decoration: InputDecoration(
@@ -25,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final passwordField = TextField( 
+      controller: passwordController,
       obscureText: true,
       style: style,
       decoration: InputDecoration( 
@@ -63,11 +69,14 @@ class _LoginPageState extends State<LoginPage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-          (Route<dynamic> route) => false,
-        );
+          if(usernameController.text == "Biplab" && passwordController.text == "Karki")
+          {
+            Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+            (Route<dynamic> route) => false,
+            );
+          }
         },
         child: Text("Sign In",
             textAlign: TextAlign.center,

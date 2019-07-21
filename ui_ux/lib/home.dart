@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
-                    "User Name",
+                    "Biplab Karki",
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 28.0,
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  "Email Address",
+                  "073bex412.biplab@pcampus.edu.np",
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 28.0,

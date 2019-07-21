@@ -12,6 +12,7 @@ class App extends StatelessWidget{
         primarySwatch: Colors.lightBlue,
       ),
       home: LoginPage(title: 'Login'),
+      // home: Category(),
     );
   }
 }
