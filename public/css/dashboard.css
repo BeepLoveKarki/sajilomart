@@ -34,10 +34,10 @@ i,a{
     opacity:0.75 !important;
 }
 
-#dismiss{
+/* #dismiss{
   color:white;
   background-color: #4290f5;
-}
+} */
 
 .sform{
   margin-left:10% !important;
@@ -179,4 +179,17 @@ video {
 .editField{
 
   margin-top: 7% !important;
+}
+
+
+.uploadBut {
+  position: absolute;
+  font-size: 50px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+
+#extPad{
+  padding-left: 9% !important;
 }

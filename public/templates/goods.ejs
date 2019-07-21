@@ -84,12 +84,15 @@
 
         <div class="form-group">
               <label for="image">Product Image</label>
-              <input type="text" name="tag" class="form-control" id="price" placeholder="Enter Good Name">
-        </div>
+              <div class="btn btn-primary">
+                  Upload
+                  <input class = "uploadBut" type="file" name="file"/>
+                </div>
+         </div>
           </form>
           </div>
 	      <div class="modal-footer">
-			  <button type="button" class="btn btn-primary" id="dismiss" onclick="postgood()">Submit</button>
+			  <button type="button" class="btn btn-success" id="dismiss" onclick="postgood()">Submit</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
 		</div>
