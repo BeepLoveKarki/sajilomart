@@ -43,7 +43,7 @@ let MongoDBStore = require('connect-mongodb-session')(fastifySession);
 
 
 let store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/Ssessions',
+  uri: 'mongodb://everesthack:everesthack@3.222.21.183:27017/database',
   collection: 'Sessions'
 });
 
@@ -61,8 +61,8 @@ app.register(fastifySession, {
 	}
 });
 
-//mongoose.connect('mongodb://uname:pwd@157.230.104.253:27017/pir',{useNewUrlParser:true,useCreateIndex:true})
-mongoose.connect('mongodb://localhost:27017/sajilomart',{useNewUrlParser:true,useCreateIndex:true})
+mongoose.connect('mongodb://everesthack:everesthack@3.222.21.183:27017/database',{useNewUrlParser:true,useCreateIndex:true})
+//mongoose.connect('mongodb://localhost:27017/sajilomart',{useNewUrlParser:true,useCreateIndex:true})
 
 let device = awsIot.device({
    keyPath: 'credentials/1a2da9790c-private.pem.key',
@@ -73,16 +73,68 @@ let device = awsIot.device({
 });
 
 device.on('connect', function() {
+    //console.log("a");
 	device.subscribe("rfid");
+	//device.publish("face",JSON.stringify({"accepted":"false"}));
 });
 
 device.on("error",function(err){
 });
- 
+
+let card;
 device.on("message",function(topic,payload){
-   let data=JSON.parse(payload.toString());
-   console.log(data);
+   card=JSON.parse(payload.toString());
+   if(card["data"] && !name){
+	  device.publish("face",JSON.stringify({"accepted":"false"}));
+    }
+	if(card["data"] && name){
+	   purchased();
+	}
 });
+
+
+function purchased(){
+  Customer.find().exec(function (err,customer) {
+	let a=0,cust;
+	
+	for(let i=0;i<customer.length;i++){
+	  if(customer[i].name==name){
+	     a=1;
+		 cust=JSON.parse(JSON.stringify(customer[i]));
+		 break;
+	  }
+	}
+	
+	name=null;
+	if(a==1){
+	  device.publish("face",JSON.stringify({"accepted":"true"}));
+	  Customer.findOneAndDelete({"__id":cust["__id"]},(err1,doc)=>{
+	     delete cust["_id"];
+		 Good.find().exec((err2,doc2)=>{
+		    for(let i=0;i<doc2.length;i++){
+				if(doc2[i].tag==card["data"]){
+				  let d=cust["goods"].split(",");
+				  d.push(doc2[i].name);
+				  d=d.filter(x => x);
+				  cust["goods"]=d.join(",");
+				  break;
+	           }
+			}
+			
+			let custm=new Customer(cust);
+			custm.save().then((err,doc)=>{
+			   res.send({status:"done"});
+			});
+			
+		 });
+	  });
+	}else{
+	  device.publish("face",JSON.stringify({"accepted":"false"}));
+	}
+	
+	
+  });
+}
 
 
 /*Web part*/
@@ -138,6 +190,17 @@ app.get('/getcustomers',(req,res)=>{
    }
   });
 	
+});
+
+
+let name;
+app.post("/detected",(req,res)=>{
+   if(req.body.data=="unknown"){
+     device.publish("face",JSON.stringify({"accepted":"false"}));
+   }else{
+	  name=req.body.data;
+   }
+   res.send({status:"done"});
 });
 
 app.post('/deletecustomer',(req,res)=>{
@@ -205,7 +268,7 @@ function goods(req,res){
 
 app.post('/customerregister',(req,res)=>{
   
-  let files = req.raw.files;
+  /*let files = req.raw.files;
   let buffers=new Array(),paths=new Array(),result=new Array();
   files["image"].forEach((val,index)=>{
      buffers.push(new Buffer.from(val.data,'base64'));
@@ -224,8 +287,39 @@ app.post('/customerregister',(req,res)=>{
 			});
           });
     });
-  });
+  });*/
+  
+  customeronly(req,res);
+  
 });
+
+function customeronly(req,res){
+  Customer.find().exec(function (err,customer) {
+
+   let a=0;
+   if(customer.length!=0){
+    for(let i=0;i<customer.length;i++){
+     if(customer[i].email==req.body.email){
+      a=1;
+	  break;
+     }
+	 if(customer[i].number==req.body.number){
+	  a=2;
+	  break;
+	 }
+    }
+  }
+  
+  if(a==1){
+    res.send({status:"emailalready"});
+   }else if(a==2){
+    res.send({status:"phonealready"});
+  }else{
+    savecustomer1(req,res);
+  }
+  
+ });
+}
 
 function customerbridge(req,res){
   Customer.find().exec(function (err,customer) {
@@ -292,6 +386,22 @@ function savecustomer(req,res){
 	address:req.raw.body.address,
 	number:req.raw.body.number,
 	password:req.raw.body.password
+   });
+	
+   customer.save().then((doc,err)=>{
+	  res.send({status:"done"});
+   });
+
+}
+
+function savecustomer1(req,res){
+  
+  let customer=new Customer({
+    name:req.body.name,
+	email:req.body.email,
+	address:req.body.address,
+	number:req.body.number,
+	password:req.body.password
    });
 	
    customer.save().then((doc,err)=>{

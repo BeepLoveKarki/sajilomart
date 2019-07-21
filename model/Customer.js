@@ -22,9 +22,12 @@ let CustomerSchema=mongoose.Schema({
     createdDate:{
         type:Date,
         default:Date.now()
-    }
+    },
+	goods:{
+	   type:String,
+	   default:""
+	}
 });
-
 
 CustomerSchema.pre('save',function(next){  
   if (this.isModified('password')){
@@ -39,14 +42,8 @@ CustomerSchema.pre('save',function(next){
   }
 });
 
-function getUserByEmail(email, result) {
-   sql.query("Select * from `users` where email = ? ", email, function (err, res) {
-		 result(res);
-   });   
-};
 
-
-CustomerSchema.plugin(mongooseFieldEncryption, { fields: ["name","email","address","number","password","createdDate"], secret: enc.decrypt(process.env.database_key) });
+CustomerSchema.plugin(mongooseFieldEncryption, { fields: ["name","email","address","number","password","createdDate","goods"], secret: enc.decrypt(process.env.database_key) });
 
 let Customer=mongoose.model('Customer',CustomerSchema)
 

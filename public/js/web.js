@@ -60,6 +60,7 @@ function show(a){
 function getcustomers(){
   $.get("/getcustomers").then ((res,status)=>{
     $(".udata").empty();
+	$(".sdata").empty();
     if(res["data"]){
 	  $(".udata").append("<tr><td colspan=\"6\" class=\"text-center\"><h5>No any customers found</h5></td></tr>");
 	}else{		
@@ -72,9 +73,25 @@ function getcustomers(){
 	  <td>"+val["email"]+"</td>\
 	  <td><i onclick=\"iedit('"+val["_id"]+"')\" class=\"fa fa-edit fa-2x\"></i><i onclick=\"modal2('"+val["_id"]+"')\" class=\"fa fa-trash fa-2x\"></i></td>\
 	  </tr>");
+	  
+	  if(val["goods"].length!=0){
+	   $(".sdata").append("<tr>\
+	     <td>"+(index+1).toString()+"</td>\
+		 <td>"+val["name"]+"</td>\
+		 <td>"+val["goods"]+"</td>\
+		 <td>"+humandate(val["createdDate"])+"</td>\
+	     </tr>");
+	   }
+	  
 	 });
+	 
     }
   });
+}
+
+function humandate(dates){
+   let d=new Date(dates);
+   return (d.toDateString()+" "+d.toTimeString());
 }
 
 function getgoods(){
@@ -83,7 +100,7 @@ function getgoods(){
     if(res["data"]){
 	  $(".gdata").append("<tr><td colspan=\"6\" class=\"text-center\"><h5>No any goods found</h5></td></tr>");
 	}else{		
-	 res.good.forEach((val,index)=>{
+	  res.good.forEach((val,index)=>{
 	  $(".gdata").append("<tr>\
 	  <td>"+(index+1).toString()+"</td>\
 	  <td>"+val["name"]+"</td>\
@@ -93,6 +110,7 @@ function getgoods(){
 	  <td><i onclick=\"tedit('"+val["_id"]+"')\" class=\"fa fa-edit fa-2x\"></i><i onclick=\"modal3('"+val["_id"]+"')\" class=\"fa fa-trash fa-2x\"></i></td>\
 	  </tr>");
 	 });
+	 
     }
   });
 }
