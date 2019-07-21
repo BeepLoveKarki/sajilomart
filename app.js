@@ -43,7 +43,7 @@ let MongoDBStore = require('connect-mongodb-session')(fastifySession);
 
 
 let store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/database',
+  uri: 'mongodb://everesthack:everesthack@3.222.21.183:27017/database',
   collection: 'Sessions'
 });
 
@@ -61,8 +61,8 @@ app.register(fastifySession, {
 	}
 });
 
-//mongoose.connect('mongodb://everesthack:everesthack@3.222.21.183:27017/database',{useNewUrlParser:true,useCreateIndex:true})
-mongoose.connect('mongodb://localhost:27017/sajilomart',{useNewUrlParser:true,useCreateIndex:true})
+mongoose.connect('mongodb://everesthack:everesthack@3.222.21.183:27017/database',{useNewUrlParser:true,useCreateIndex:true})
+//mongoose.connect('mongodb://localhost:27017/sajilomart',{useNewUrlParser:true,useCreateIndex:true})
 
 let device = awsIot.device({
    keyPath: 'credentials/1a2da9790c-private.pem.key',
