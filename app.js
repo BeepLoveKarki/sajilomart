@@ -169,13 +169,14 @@ app.post('/deletegood',(req,res)=>{
 });
 
 app.post("/addgood",(req,res)=>{
- 
+
  let files = req.raw.files;
  let buffer=new Buffer.from(files["image"]["data"],'base64');
  let filepath="./public/uploads/"+req.raw.body.type+"/"+req.raw.body.name+".png";
  let path="./public/uploads/"+req.raw.body.type;
  
  fs.mkdir(path,{recursive:true},(err1)=>{
+	
 	fs.writeFile(filepath, buffer, (err2)=>{
 	   cmd.get('aws s3 mv '+filepath+'  s3://sajilomart-goods/'+req.raw.body.type+'/', function(err3, data, stderr){
 			fs.remove(path, (err4)=>{

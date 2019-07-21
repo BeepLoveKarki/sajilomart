@@ -59,42 +59,47 @@
              </button>
           </div>
 	      <div class="modal-body">
-            <form>
+		  
+           <form class="cl">
 			<div class="form-group">
 			 <label for="gname">Name</label>
-			   <input type="text" name="name" class="form-control" id="gname" placeholder="Enter Good Name">
+			   <input type="text" name="name" class="form-control" id="namer" placeholder="Enter Good Name">
             </div>
             <div class="form-group">
 			  <label for="type">Good Type</label>
-			    <select class="form-control" id="type" name="type">
+			    <select class="form-control" id="typer" name="type">
 				 <option value="Edible">Edible</option>
 				 <option value="Edible">Wearable</option>
 				 <option value="Gadgets">Gadgets</option>
 				 <option value="Households">Households</option>
                </select>
            </div>
+		   
 		   <div class="form-group">
 			 <label for="price">Price</label>
-			   <input type="text" name="price" class="form-control" id="price" placeholder="Enter Good Name">
+			   <input type="text" name="price" class="form-control" id="pricer" placeholder="Enter Good Price">
            </div>
+		   
 		   <div class="form-group">
 			 <label for="tag">Tag</label>
-			   <input type="text" name="tag" class="form-control" id="price" placeholder="Enter Good Name">
+			   <input type="text" name="tag" class="form-control" id="tagr" placeholder="Enter Good Tag">
             </div>
 
-        <div class="form-group">
-              <label for="image">Product Image</label>
-              <div class="btn btn-primary">
-                  Upload
-                  <input class = "uploadBut" type="file" name="file"/>
-                </div>
-         </div>
-          </form>
+          <div class="form-group" style="margin-top:3%">
+		     <label for="tag">Image</label> <br/>
+              <input class = "uploadBut"  type="file" name="image"/>
           </div>
-	      <div class="modal-footer">
-			  <button type="button" class="btn btn-success" id="dismiss" onclick="postgood()">Submit</button>
+          
+		  </div>
+	      
+		  <div class="modal-footer">
+			  <button type="submit" class="btn btn-success" id="dismiss" onclick="postgood()">Submit</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
+		  
+		  
+		  </form>
+		
 		</div>
      </div>
 	 

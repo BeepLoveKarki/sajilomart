@@ -15,9 +15,35 @@ $(document).ready(()=>{
  setInterval(()=>{
   getcustomers()
  },5000);
-  
+ 
+ setTimeout(()=>{
+  getgoods()
+ },1000);
+ 
+ setInterval(()=>{
+  getgoods()
+ },5000);
+ 
 });
 
+function postgood(){
+   let formData = new FormData();
+   formData.append('name', $("#namer").val());
+   formData.append('type', $("#typer").val());
+   formData.append('price', $("#pricer").val());
+   formData.append('tag', $("#tagr").val());
+   formData.append('image', $('.cl input[type=file]')[0].files[0]); 
+   $.ajax({
+	   url: '/addgood',
+	   data: formData,
+	   processData: false,
+	   contentType: false,
+	   type: 'POST',
+	   success: function(data){
+         window.location.reload();
+       }
+});
+}
 
 function show(a){
   $("#n"+a.toString()).addClass("active");
@@ -51,6 +77,26 @@ function getcustomers(){
   });
 }
 
+function getgoods(){
+  $.get("/getgoods").then ((res,status)=>{
+    $(".gdata").empty();
+    if(res["data"]){
+	  $(".gdata").append("<tr><td colspan=\"6\" class=\"text-center\"><h5>No any goods found</h5></td></tr>");
+	}else{		
+	 res.good.forEach((val,index)=>{
+	  $(".gdata").append("<tr>\
+	  <td>"+(index+1).toString()+"</td>\
+	  <td>"+val["name"]+"</td>\
+	  <td>"+val["price"]+"</td>\
+	  <td>"+val["type"]+"</td>\
+	  <td>"+val["tag"]+"</td>\
+	  <td><i onclick=\"tedit('"+val["_id"]+"')\" class=\"fa fa-edit fa-2x\"></i><i onclick=\"modal3('"+val["_id"]+"')\" class=\"fa fa-trash fa-2x\"></i></td>\
+	  </tr>");
+	 });
+    }
+  });
+}
+
 function logout(){
   window.location.href="/logout";
 }
@@ -72,6 +118,22 @@ function deletecustomer(){
 	  $(".custdmodal").modal('hide');
 	  modal("Customer successfully deleted");
 	  getcustomers();
+	}
+ });
+}
+
+let cid;
+function modal3(id){
+ cid=id;
+ $(".custdmodal1").modal('show');
+}
+
+function deletegood(){
+ $.post("/deletegood",{id:cid}).then((res,status)=>{
+    if(res.status=="done"){
+	  $(".custdmodal1").modal('hide');
+	  modal("Good successfully deleted");
+	  getgoods();
 	}
  });
 }

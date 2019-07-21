@@ -26,7 +26,7 @@ i,a{
   margin-top:2%;
 }
 
-.simplemodal, .custdmodal{
+.simplemodal, .custdmodal, .custdmodal1{
   margin-top:20vh;
 }
 
@@ -177,18 +177,9 @@ video {
 } 
 
 .editField{
-
   margin-top: 7% !important;
 }
 
-
-.uploadBut {
-  position: absolute;
-  font-size: 50px;
-  opacity: 0;
-  right: 0;
-  top: 0;
-}
 
 #extPad{
   padding-left: 9% !important;
