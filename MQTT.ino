@@ -70,6 +70,7 @@ void NTPConnect(void)
 
 void messageReceived(String &topic, String &payload)
 {
+  Serial.println(payload);
   DynamicJsonDocument doc(1024);
   deserializeJson(doc, payload);
   JsonObject obj = doc.as<JsonObject>();
